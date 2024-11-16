@@ -1347,7 +1347,9 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
 
     static string storage;
 
-    char letter, decision, revive;
+    char letter, decision;
+
+    bool skip_b = false;
 
     int loc2;
 
@@ -1378,13 +1380,13 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
 
                 if (add_life > 0) {
                     lives_counter(lives, category);
-                    center_padding("Do You Want Use Revive?", true);
+                    center_padding("Do You Want Use Revive?(Y/N)", true);
                     cout << setw(59) << "" << ": ";
-                    cin >> revive;
+                    cin >> decision;
 
-                    revive = toupper(revive);
+                    decision = toupper(decision);
 
-                    if (cin.fail() || cin.peek() != '\n' || revive != 'Y' && revive != 'N') {
+                    if (cin.fail() || cin.peek() != '\n' || decision != 'Y' && decision != 'N') {
 
                         center_padding(" Invalid Input, 'Y' or 'N' Only", true);
                         Sleep(1000);
@@ -1393,7 +1395,7 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
                         cin.ignore(1000, '\n');
                         continue;
                     }
-                    else if (revive == 'Y') {
+                    else if (decision == 'Y') {
 
                         system("cls");
                         lives = 6;
@@ -1502,7 +1504,7 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
                     }
 
                     cout << "\n";
-                    center_padding(" Type 'Y' to Confirm Usage of Hint", true);
+                    center_padding(" Type 'Y' to Confirm | 'N' to Cancel ", true);
                     cout << setw(59) << "" << ": ";
                     cin >> decision;
 
@@ -1544,7 +1546,64 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
 
         } else if (letter == '2') {
 
-            exit(0); // for the meantime
+            while (true) {
+
+                if (skip > 0) {
+
+                    system("cls");
+                    lives_counter(lives, category);
+
+                    cout << "\n";
+                    center_padding(" Type 'Y' to Confirm | 'N' to Cancel ", true);
+                    cout << setw(59) << "" << ": ";
+                    cin >> decision;
+
+                    decision = toupper(decision);
+
+                    if (cin.fail() || cin.peek() != '\n' || decision != 'Y' && decision != 'N') {
+
+                        center_padding(" Invalid Input, 'Y' or 'N' Only", true);
+                        Sleep(1000);
+                        system("cls");
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        continue;
+
+                    } else if (decision == 'Y') {
+                            
+                            system("cls");
+                            cin.ignore(1000, '\n');
+                            lives_counter(lives, category);
+                            center_padding("Word Skipped: ", false);
+                            cout << "\n";
+                            center_padding(word, false);
+                            storage.clear();
+                            cout << "\n";
+                            center_padding("Exiting...", false);
+                            skip_b = true;
+                            Sleep(1000);
+                            break;
+                   
+
+                    } else {
+
+                        break;
+
+                    }
+
+                }
+                else {
+
+                    center_padding(" Insufficient Number of Word Skip", true);
+                    Sleep(1000);
+                    system("cls");
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    break;
+
+
+                }
+            }
 
         }
         else {
@@ -1587,6 +1646,14 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
                 system("cls");
             }
         }
+
+        if (skip_b == true) {
+
+            system("cls");
+            break;
+
+        }
+
     }
 }
 
@@ -1644,9 +1711,9 @@ void shop(int win, int bal_hint, int bal_life, int bal_skip) {
   
 
     cout << setw(3) << "" << setw(114) << setfill('-') << "" << setfill(' ') << endl;
-    cout << "  /" << left << setw(114) << "                           -------------------      --------------------------      -----------------------     " << "\\" << endl;
-    cout << " /" << left << setw(116) << "   Rate (Wins to Item):    |  3 Wins = 1 Hint  |    |  5 Wins = Recover Lives  |    |  10 Wins = Skip Word  |    " << "\\" << endl;
-    cout << "/" << left << setw(118) << "                             -------------------      --------------------------      -----------------------     " << "\\" << endl;
+    cout << "  /" << left << setw(114) << "                           -------------------          --------------------          -----------------------     " << "\\" << endl;
+    cout << " /" << left << setw(116) << "   Rate (Wins to Item):    |  3 Wins = 1 Hint  |        |  5 Wins = Revive   |        |  10 Wins = Skip Word  |    " << "\\" << endl;
+    cout << "/" << left << setw(118) << "                             -------------------          --------------------          -----------------------     " << "\\" << endl;
     cout << setw(120) << setfill('-') << "" << setfill(' ') << endl;
     cout << setw(9) << "" << "|" << left << setw(34) <<"   |  * |    |    |    |    | "  << left << setw(66) << "                                    |    |    |    |    |    | * "<< "|" << endl;
     cout << setw(9) << "" << "|" << left << setw(33) << " * |    0  * |    0    |    |" << left << setw(67) << ">>=============================<<    | *  |    0    0    | *  0   " << "|" << endl;
@@ -1666,7 +1733,7 @@ void shop(int win, int bal_hint, int bal_life, int bal_skip) {
     cout << setw(9) << "" << "|" << left << setw(100) << "         \\   {_.=}   /            \\     *      /          \\  <      ^^ /     |                 |    " << "|" << endl;
     cout << setw(9) << "" << "|" << left << setw(100) << "           ----------               ----------              ----------       +-----------------+    " << "| " << endl;
     cout << setw(9) << "" << "|" << left << setw(100) << "        ----------------        ------------------        ----------------   |                 |    " << "|" << endl;
-    cout << setw(9) << "" << "|" << left << setw(100) << "            A. HINT              B. RECOVER LIVES           C. SKIP WORD     |    INVENTORY    |    " << "|" << endl;
+    cout << setw(9) << "" << "|" << left << setw(100) << "            A. HINT                  B. REVIVE              C. SKIP WORD     |    INVENTORY    |    " << "|" << endl;
     cout << setw(9) << "" << "|" << left << setw(100) << "        ----------------        ------------------        ----------------   +-----------------+    " << "|" << endl;
     cout << setw(9) << "" << setw(102) << setfill('-') << "" << setfill(' ') << endl;
 
