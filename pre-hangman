@@ -10,7 +10,6 @@ using namespace std;
 
 int wins = 12, lose = 0, hint = 0, add_life = 0, skip = 0;
 
-
 void cover(bool is_cover);
 void center(string to_center, bool w_design);
 bool register1(string user, string pass);
@@ -28,6 +27,9 @@ void header_littlev2();
 void play_again();
 void hint_usage(string& word, char extract[], int word_size, int& hint);
 void lives_counter(int& lives, string category);
+void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip);
+bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip);
+
 
 
 int main() {
@@ -42,10 +44,15 @@ int main() {
     string category_store;
     int is_ready;
 
+
+
+  
+
+
     while (true) {
 
     
-
+      
      
         cover(true);
         center("Press Enter to Start the Game!", true);
@@ -263,11 +270,15 @@ int main() {
             break;
         }
 
+    
     }
 
     system("cls");
+    load_data(username, wins, lose, hint, add_life, skip);
 
     //hangman game;
+
+
 
 
 
@@ -441,6 +452,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
+                    save_data(username, wins, lose, hint, add_life, skip);
 
 
                     while (true) {
@@ -519,6 +531,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
+                    save_data(username, wins, lose, hint, add_life, skip);
 
                     while (true) {
 
@@ -593,6 +606,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
+                    save_data(username, wins, lose, hint, add_life, skip);
 
                     while (true) {
 
@@ -755,6 +769,7 @@ int main() {
                 cin.ignore(1000, '\n');
                 continue;
 
+
             }
 
             if (buy == 'a' || buy == 'A') {
@@ -775,6 +790,7 @@ int main() {
                         proceed = false;
                     
                     } else {
+                  
                         proceed = true;
                     }
                    
@@ -790,7 +806,7 @@ int main() {
                     Sleep(1000);
                     system("cls");
 
-
+                    save_data(username, wins, lose, hint, add_life, skip);
 
                 }
                 else {
@@ -821,6 +837,7 @@ int main() {
                         proceed = false;
 
                     }  else {
+                
                         proceed = true;
                     }
 
@@ -836,7 +853,7 @@ int main() {
                     Sleep(1000);
                     system("cls");
 
-
+                    save_data(username, wins, lose, hint, add_life, skip);
 
                 }
                 else {
@@ -869,6 +886,7 @@ int main() {
 
                     }
                     else {
+
                         proceed = true;
                     }
 
@@ -884,7 +902,7 @@ int main() {
                     Sleep(1000);
                     system("cls");
 
-
+                    save_data(username, wins, lose, hint, add_life, skip);
 
                 }  else {
 
@@ -897,7 +915,9 @@ int main() {
 
             }
             else if (buy == 'e' || buy == 'E') {
-
+             
+                save_data(username, wins, lose, hint, add_life, skip);
+                system("cls");
                 break;
 
             }
@@ -922,20 +942,12 @@ int main() {
         cout << "try";
 
     }
+
 }
 
 
 
 
-
-
-
-
-
-
-
-
-  
 }
 
 void cover(bool is_cover) {
@@ -992,6 +1004,7 @@ void center(string to_center, bool w_design) {
 }
 
 bool register1(string user, string pass) {
+
     string checker;
     ifstream i_players("registered.txt");
 
@@ -1655,6 +1668,9 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
         }
 
     }
+
+    
+
 }
 
 void header_little(bool curtain) {
@@ -1712,7 +1728,7 @@ void shop(int win, int bal_hint, int bal_life, int bal_skip) {
 
     cout << setw(3) << "" << setw(114) << setfill('-') << "" << setfill(' ') << endl;
     cout << "  /" << left << setw(114) << "                           -------------------          --------------------          -----------------------     " << "\\" << endl;
-    cout << " /" << left << setw(116) << "   Rate (Wins to Item):    |  3 Wins = 1 Hint  |        |  5 Wins = Revive   |        |  10 Wins = Skip Word  |    " << "\\" << endl;
+    cout << " /" << left << setw(116) << "   Rate (Wins to Item):    |  3 Wins = 1 Hint  |        |  5 Wins = Revive   |        |  10 Wins = Word Skip  |    " << "\\" << endl;
     cout << "/" << left << setw(118) << "                             -------------------          --------------------          -----------------------     " << "\\" << endl;
     cout << setw(120) << setfill('-') << "" << setfill(' ') << endl;
     cout << setw(9) << "" << "|" << left << setw(34) <<"   |  * |    |    |    |    | "  << left << setw(66) << "                                    |    |    |    |    |    | * "<< "|" << endl;
@@ -1733,7 +1749,7 @@ void shop(int win, int bal_hint, int bal_life, int bal_skip) {
     cout << setw(9) << "" << "|" << left << setw(100) << "         \\   {_.=}   /            \\     *      /          \\  <      ^^ /     |                 |    " << "|" << endl;
     cout << setw(9) << "" << "|" << left << setw(100) << "           ----------               ----------              ----------       +-----------------+    " << "| " << endl;
     cout << setw(9) << "" << "|" << left << setw(100) << "        ----------------        ------------------        ----------------   |                 |    " << "|" << endl;
-    cout << setw(9) << "" << "|" << left << setw(100) << "            A. HINT                  B. REVIVE              C. SKIP WORD     |    INVENTORY    |    " << "|" << endl;
+    cout << setw(9) << "" << "|" << left << setw(100) << "            A. HINT                  B. REVIVE              C. WORD SKIP     |    INVENTORY    |    " << "|" << endl;
     cout << setw(9) << "" << "|" << left << setw(100) << "        ----------------        ------------------        ----------------   +-----------------+    " << "|" << endl;
     cout << setw(9) << "" << setw(102) << setfill('-') << "" << setfill(' ') << endl;
 
@@ -1806,13 +1822,55 @@ void hint_usage(string& word, char extract[], int word_size, int& hint ) {
 
     }
 
-
-       
-    
-
-
 }
 
 
+void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip) {
+    ofstream record("STATS OF " + username);
+   
+    record << "Username: " << username << "\n";
+    record << "Wins: " << wins << "\n";
+    record << "Loses: " << loses << "\n";
+    record << "Hints: " << hints << "\n";
+    record << "Revives: " << add_life << "\n";
+    record << "Skips: " << skip << "\n";
 
+    record.close();
+ 
+}
 
+bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip) {
+    ifstream record("STATS OF " + username);
+    string label;
+    string subtract;
+    bool username_found = false;
+
+    if (record.is_open()) {
+        while (getline(record, label)) {
+            if (label.find("Username: ") == 0) {
+                subtract = label.substr(10);
+                if (subtract == username) {
+                    username_found = true;
+                }
+            }
+            else if (label.find("Wins: ") == 0) {
+                wins = stoi(label.substr(6));
+            }
+            else if (label.find("Loses: ") == 0) {
+                loses = stoi(label.substr(7));
+            }
+            else if (label.find("Hints: ") == 0) {
+                hints = stoi(label.substr(7));
+            }
+            else if (label.find("Revives: ") == 0) {
+                add_life = stoi(label.substr(8));
+            }
+            else if (label.find("Skips: ") == 0) {
+                skip = stoi(label.substr(7));
+            }
+        }
+    }
+
+    record.close();
+    return true;
+}
