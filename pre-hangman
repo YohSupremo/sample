@@ -8,7 +8,9 @@
 
 using namespace std;
 
-int wins = 12, lose = 0, hint = 0, add_life = 0, skip = 0;
+int wins = 12, lose = 0, hint = 0, add_life = 0, skip = 0, int_streak = 0, streak_claim = 0;
+string username, password;
+bool is_intro = false, streak = true, rewards1 = 1, rewards2 = 1, rewards3 = 1, rewards4 = 1, rewards5 = 1, rewards6 = 1, rewards7 = 1, rewards8 = 1;
 
 void cover(bool is_cover);
 void center(string to_center, bool w_design);
@@ -27,8 +29,9 @@ void header_littlev2();
 void play_again();
 void hint_usage(string& word, char extract[], int word_size, int& hint);
 void lives_counter(int& lives, string category);
-void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip);
-bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip);
+void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip, bool is_intro);
+bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip, bool& is_intro);
+
 
 
 
@@ -36,7 +39,6 @@ int main() {
 
     bool error = false, invalid = false, exit = false;
     int intro = 0;
-    string username, password;
     bool validation = false, user_validate, proceed = false;
     string pick;
     char extract[50], buy, play_more;
@@ -48,11 +50,41 @@ int main() {
 
   
 
-
     while (true) {
 
+        
+       
+        
+
+     /*
+             cout << setw(30) << "" << "   __| |______________________________________________________| |__ " << endl;
+        cout << setw(30) << "" << "   __   ______________________________________________________   __ " << endl;
+        cout << setw(35) << "" << "| |" << setw(54) << "" << "| |" << endl;
+        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " ------    .---------------." << "| |" << endl;
+        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    |   / I have 6 lives, \\" << "| |" << endl;
+        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    O  <  Take care of me! |" << "| |" << endl;
+        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |   /|\\  \\       Ok?       /" << "| |" << endl;
+        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |   / \\   '---------------'" << "| |" << endl;
+        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |                |" << "| |" << endl;
+        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << "  ------    -------------" << "| |" << endl;
+        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |      |  |             |" << "| |" << endl;
+        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << "  ------    -------------" << "| |" << endl;
+        cout << setw(30) << "" << "   __| |______________________________________________________| |__ " << endl;
+        cout << setw(30) << "" << "   __   ______________________________________________________   __ " << endl;
+        cout << setw(30) << "" << "     | |                                                      | | " << endl;
+        cout << "\n\n\n\n" << setw(55) << "" << " Don't Click Anything" << endl;
+     
+     */
+        
+        
     
+        
+
       
+       
+
+
+        
      
         cover(true);
         center("Press Enter to Start the Game!", true);
@@ -274,67 +306,71 @@ int main() {
     }
 
     system("cls");
-    load_data(username, wins, lose, hint, add_life, skip);
+    load_data(username, wins, lose, hint, add_life, skip, is_intro);
 
     //hangman game;
 
+    if (is_intro == false) {
+
+
+
+        header_little(false);
+        cout << "\n\n";
+
+        cout << setw(25) << "" << "   __| |______________________________________________________| |__ " << endl;
+        cout << setw(25) << "" << "   __   ______________________________________________________   __ " << endl;
+        cout << setw(30) << "" << "| |" << setw(54) << "" << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " ------    .-------------." << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    |   / Hello, World! \\" << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    O  <  Let's Play -   |" << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |   /|\\  \\    HangMan    /" << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |   / \\   '-------------'" << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " | " << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "  ------" << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |      |" << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "  ------" << "| |" << endl;
+        cout << setw(25) << "" << "   __| |______________________________________________________| |__ " << endl;
+        cout << setw(25) << "" << "   __   ______________________________________________________   __ " << endl;
+        cout << setw(25) << "" << "     | |                                                      | | " << endl;
+
+
+
+        Sleep(3000);
+
+
+        system("cls");
+
+
+        header_little(false);
+        cout << "\n\n";
+
+        cout << setw(25) << "" << "   __| |______________________________________________________| |__ " << endl;
+        cout << setw(25) << "" << "   __   ______________________________________________________   __ " << endl;
+        cout << setw(30) << "" << "| |" << setw(54) << "" << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "         " << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "         " << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "       .-------------.   " << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "      *   But before  *   " << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "     *   that, choose  *   " << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " 0  <      from the     | " << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "\\|/  *    following!   * " << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    '---------------' " << "| |" << endl;
+        cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "/ \\     " << "| |" << endl;
+        cout << setw(25) << "" << "   __| |______________________________________________________| |__ " << endl;
+        cout << setw(25) << "" << "   __   ______________________________________________________   __ " << endl;
+        cout << setw(25) << "" << "     | |                                                      | | " << endl;
 
 
 
 
-    header_little(false);
-    cout << "\n\n";
-
-    cout << setw(25) << "" << "   __| |______________________________________________________| |__ " << endl;
-    cout << setw(25) << "" << "   __   ______________________________________________________   __ " << endl;
-    cout << setw(30) << "" << "| |" << setw(54) << "" << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " ------    .-------------." << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    |   / Hello, World! \\" << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    O  <  Let's Play -   |" << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |   /|\\  \\    HangMan    /" << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |   / \\   '-------------'" << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " | " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "  ------" << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |      |" << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "  ------" << "| |" << endl;
-    cout << setw(25) << "" << "   __| |______________________________________________________| |__ " << endl;
-    cout << setw(25) << "" << "   __   ______________________________________________________   __ " << endl;
-    cout << setw(25) << "" << "     | |                                                      | | " << endl;
-
-  
-
-    Sleep(3000);
+        Sleep(3000);
 
 
-    system("cls");
-
-
-    header_little(false);
-    cout << "\n\n";
-
-    cout << setw(25) << "" << "   __| |______________________________________________________| |__ " << endl;
-    cout << setw(25) << "" << "   __   ______________________________________________________   __ " << endl;
-    cout << setw(30) << "" << "| |" << setw(54) << "" << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "         " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "         " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "       .-------------.   " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "      *   But before  *   " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "     *   that, choose  *   " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " 0  <      from the     | " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "\\|/  *    following!   * " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    '---------------' " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "/ \\     " << "| |" << endl;
-    cout << setw(25) << "" << "   __| |______________________________________________________| |__ " << endl;
-    cout << setw(25) << "" << "   __   ______________________________________________________   __ " << endl;
-    cout << setw(25) << "" << "     | |                                                      | | " << endl;
-
+        system("cls");
+        is_intro = true;
+        save_data(username, wins, lose, hint, add_life, skip, is_intro);
+    }
     
-
-    Sleep(3000);
-
-
-    system("cls");
-
     
 
     while (true) {
@@ -362,45 +398,127 @@ int main() {
 
     cin >> is_ready;
 
-    system("cls");
+ 
 
+    if (cin.fail() || cin.peek() != '\n') {
+
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "\n";
+        center_padding("Invalid Input, Please Try Again", false);
+        Sleep(1000);
+        system("cls");
+        continue;
+
+    }
+
+    system("cls");
     if (is_ready == 1) {
+
+        cover(true);
 
         loading_animation();
 
 
-        cout << setw(30) << "" << "   __| |______________________________________________________| |__ " << endl;
-        cout << setw(30) << "" << "   __   ______________________________________________________   __ " << endl;
-        cout << setw(35) << "" << "| |" << setw(54) << "" << "| |" << endl;
-        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " ------    .---------------." << "| |" << endl;
-        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    |   / I have 6 lives, \\" << "| |" << endl;
-        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |    O  <  Take care of me! |" << "| |" << endl;
-        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |   /|\\  \\       Ok?       /" << "| |" << endl;
-        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |   / \\   '---------------'" << "| |" << endl;
-        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |                |" << "| |" << endl;
-        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << "  ------    -------------" << "| |" << endl;
-        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << " |      |  |             |" << "| |" << endl;
-        cout << setw(35) << "" << "| |" << setw(15) << "" << left << setw(39) << "  ------    -------------" << "| |" << endl;
-        cout << setw(30) << "" << "   __| |______________________________________________________| |__ " << endl;
-        cout << setw(30) << "" << "   __   ______________________________________________________   __ " << endl;
-        cout << setw(30) << "" << "     | |                                                      | | " << endl;
-        cout << "\n\n\n\n" << setw(55) << "" << " Don't Click Anything" << endl;
+
+
+     
+        system("cls");
+        cout << ".  . .    .         .         .      .         .      .    .     .   .     .         .   .     .    .    ..         ." << endl;
+        cout << "     .      ..     .    .      .       .       ..        .    .            .       .    .    ..       k. .   ." << endl;
+        cout << "   .  * .          *         .         .  *      .         .        .        .   *    .      . .      kkk. .   * ." << endl;
+        cout << ". . .    .        .       .      .           .  *         *           .         .      .     .         kkkkk .   .  . " << endl;
+        cout << "  . .   .       .    *           .      .           .     .         .     *     .     .    .      .     kkkkkk  . * ." << endl;
+        cout << ". . ..   .    .  .     *    .     .    ..   .    .    .    .   . .*  .     .   .   .   ...    .     .   kkkkkk .  .   " << endl;
+        cout << " .   .         .   .         .    .             .    ..       .    .       .          .     .     .  .  kkkkk . .     . " << endl;
+        cout << ".  .    * .   .      ..     .   .     .  *  .    .        .  .     .    .       .   *    .   .        kkkkk .  *    " << endl;
+        cout << " . . . . .  . .       .  . .    .   .      .       .    *    .      .    .     .      .    .     .   kkk  .   .   .   ." << endl;
+        cout << "   .           .   *       .        ..         .    .       .      .    .       .     .    .     .  .k  .  .        ." << endl;
+        cout << setw(10) << ". *  ." << setw(100) << setfill('-') << "" << setfill(' ') << " .   *  ." << endl;
+        cout << setw(9) << " .   . . " << "/" << setw(100) << "" << "\\" << "     . ." << endl;
+        cout << setw(8) << "     * " << "/" << left << setw(102) << "                        You are in your dream, seeing a man who will be hanged" << "\\" << " .  . " << endl;
+        cout << setw(7) << " .  ." << "/" << left << setw(104) << "" << "\\" << " *   .." << endl;
+        cout << setw(7) << "" << setw(106) << setfill('-') << "" << setfill(' ') << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                                * * * * * * *             " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                               *   zzzz....  * " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                                * * * * * * *             " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                     ----------.--         .        -------                  " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |      0  .   |         * *    | HELP! |            " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                     ------|------        *     * . -------          " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |    / | \\    |     *    0 .  *                    " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |      |      |    *    /|\\    *                   " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |     / \\     |    *     |     *                 " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |             |     *   / \\   *                       " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |_____________|       *  *  *                 " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "" << "|" << endl;
+        cout << setw(15) << "" << setw(87) << setfill('-') << "" << setfill(' ') << endl;
+   
+        Sleep(3000);
+        system("cls");
+
+
+
+        cout << ".  . .    .         .         .      .         .      .    .     .   .     .         .   .     .    .    ..         ." << endl;
+        cout << "     .      ..     .    .      .       .       ..        .    .            .       .    .    ..       k. .   ." << endl;
+        cout << "   .  * .          *         .         .  *      .         .        .        .   *    .      . .      kkk. .   * ." << endl;
+        cout << ". . .    .        .       .      .           .  *         *           .         .      .     .         kkkkk .   .  . " << endl;
+        cout << "  . .   .       .    *           .      .           .     .         .     *     .     .    .      .     kkkkkk  . * ." << endl;
+        cout << ". . ..   .    .  .     *    .     .    ..   .    .    .    .   . .*  .     .   .   .   ...    .     .   kkkkkk .  .   " << endl;
+        cout << " .   .         .   .         .    .             .    ..       .    .       .          .     .     .  .  kkkkk . .     . " << endl;
+        cout << ".  .    * .   .      ..     .   .     .  *  .    .        .  .     .    .       .   *    .   .        kkkkk .  *    " << endl;
+        cout << " . . . . .  . .       .  . .    .   .      .       .    *    .      .    .     .      .    .     .   kkk  .   .   .   ." << endl;
+        cout << "   .           .   *       .        ..         .    .       .      .    .       .     .    .     .  .k  .  .        ." << endl;
+        cout << setw(10) << ". *  ." << setw(100) << setfill('-') << "" << setfill(' ') << " .   *  ." << endl;
+        cout << setw(9) << " .   . . " << "/" << setw(100) << "" << "\\" << "     . ." << endl;
+        cout << setw(8) << "     * " << "/" << left << setw(102) << "                               You then saw a passcode with categories..." << "\\" << " .  . " << endl;
+        cout << setw(7) << " .  ." << "/" << left << setw(104) << "" << "\\" << " *   .." << endl;
+        cout << setw(7) << "" << setw(106) << setfill('-') << "" << setfill(' ') << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                                * * * * * * *             " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                               *   zzzz....  * " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                                * * * * * * *             " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                     ----------.--         .        -------               " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |      0  .   |         * *    | HELP! | .            " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                     ------|------        *     * . -------     .         " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |    / | \\    |     *    0 .  *            * *       " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |      |      |    *    /|\\    *         *     *     " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |     / \\     |    *     |     *        * _____ *    " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |             |     *   / \\   *          *     *     " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |_____________|       *  *  *              * *        " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "" << "|" << endl;
+        cout << setw(15) << "" << setw(87) << setfill('-') << "" << setfill(' ') << endl;
+
 
         Sleep(3000);
         system("cls");
-        cout << "\n\n\n\n";
-        cout << setw(55) << "" << " You are in your dream, seeing a man who will be hanged " << endl;
-        cout << "\n\n\n\n\n\n\n\n\n" << setw(15) << "" << " Don't Click Anything" << endl;
-        Sleep(3000);
-        system("cls");
-        cout << "\n\n\n\n";
-        cout << setw(58) << "" << " You saw a passcode with categories..." << endl;
-        cout << "\n\n\n\n\n\n\n\n\n" << setw(15) << "" << " Don't Click Anything" << endl;
-        Sleep(3000);
-        system("cls");
-        cout << "\n\n\n\n";
-        cout << setw(60) << "" << " Guess the code to save him! ..." << endl;
-        cout << "\n\n\n\n\n\n\n\n\n" << setw(15) << "" << " Don't Click Anything" << endl;
+        cout << ".  . .    .         .         .      .         .      .    .     .   .     .         .   .     .    .    ..         ." << endl;
+        cout << "     .      ..     .    .      .       .       ..        .    .            .       .    .    ..       k. .   ." << endl;
+        cout << "   .  * .          *         .         .  *      .         .        .        .   *    .      . .      kkk. .   * ." << endl;
+        cout << ". . .    .        .       .      .           .  *         *           .         .      .     .         kkkkk .   .  . " << endl;
+        cout << "  . .   .       .    *           .      .           .     .         .     *     .     .    .      .     kkkkkk  . * ." << endl;
+        cout << ". . ..   .    .  .     *    .     .    ..   .    .    .    .   . .*  .     .   .   .   ...    .     .   kkkkkk .  .   " << endl;
+        cout << " .   .         .   .         .    .             .    ..       .    .       .          .     .     .  .  kkkkk . .     . " << endl;
+        cout << ".  .    * .   .      ..     .   .     .  *  .    .        .  .     .    .       .   *    .   .        kkkkk .  *    " << endl;
+        cout << " . . . . .  . .       .  . .    .   .      .       .    *    .      .    .     .      .    .     .   kkk  .   .   .   ." << endl;
+        cout << "   .           .   *       .        ..         .    .       .      .    .       .     .    .     .  .k  .  .        ." << endl;
+        cout << setw(10) << ". *  ." << setw(100) << setfill('-') << "" << setfill(' ') << " .   *  ." << endl;
+        cout << setw(9) << " .   . . " << "/" << setw(100) << "" << "\\" << "     . ." << endl;
+        cout << setw(8) << "     * " << "/" << left << setw(102) << "                                       Guess the code to save him!      " << "\\" << " .  . " << endl;
+        cout << setw(7) << " .  ." << "/" << left << setw(104) << "" << "\\" << " *   .." << endl;
+        cout << setw(7) << "" << setw(106) << setfill('-') << "" << setfill(' ') << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                                * * * * * * *             " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                               *   zzzz....  * " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                                * * * * * * *             " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                     ----------.--         .        -------               * *        " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |      0  .   |         * *    | HELP! | .          *     *      " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                     ------|------        *     * . -------     .      * HELLO *     " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |    / | \\    |     *    0 .  *            * *      *     *     " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |      |      |    *    /|\\    *         *     *      * *       " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |     / \\     |    *     |     *        * _____ *   .           " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |             |     *   / \\   *          *     *  .             " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "                    |_____________|       *  *  *              * *                   " << "|" << endl;
+        cout << setw(15) << "" << "|" << left << setw(85) << "" << "|" << endl;
+        cout << setw(15) << "" << setw(87) << setfill('-') << "" << setfill(' ') << endl;
+  
         Sleep(3000);
         system("cls");
 
@@ -419,31 +537,42 @@ int main() {
             int random_active = rand() % s_category;
 
             category_store = category[random_active];
-
-            cout << " Randomizing Categories... " << endl;
+            
+            cover(true);
+            cout << "\n";
+            center_padding(" Randomizing Categories...", false);
             Sleep(1000);
 
-            cout << "\n";
+       
 
             if (category[random_active] == " Country") {
+                
+                system("cls");
+                cover(true);
+                cout << "\n";
+                center_padding(" You Just Pick Country", false);
+                Sleep(2000);
 
-                cout << " You Just Pick Country\n " << endl;
-
-                string country[] = { "SWITZERLAND", "ALABAMA", "AMERICA", "FINLAND", "CHINA", "JAPAN", "KOREA", "PHILIPPINES", "UKRAINE", "GERMANY", "FRANCE", "CANADA",
+                string country[] = { "SWITZERLAND", "AMERICA", "FINLAND", "CHINA", "JAPAN", "KOREA", "PHILIPPINES", "UKRAINE", "GERMANY", "FRANCE", "CANADA",
                 "INDONESIA", "MEXICO", "POLAND", "ITALY", "SPAIN", "TURKEY", "PORTUGAL", "GREECE", "VIETNAM", "BELGIUM", "NORWAY", "HUNGARY", "PERU", "CROATIA", "IRAQ",
                 "PAKISTAN", "COLOMBIA", "JAMAICA", "SERBIA", "ISRAEL", "VENEZUELA", "AUSTRIA", "SLOVAKIA", "DENMARK", "ALBANIA", "EGYPT", "LITHUANIA", "MONGOLIA", "QATAR" };
                 int s_country = sizeof(country) / sizeof(country[0]);
 
                 random_active = rand() % s_country;
 
-                cout << " Randomizing Countries, Please Wait... " << endl;
+                system("cls");
+                cover(true);
+                cout << "\n";
+                center_padding(" Randomizing Countries, Please Wait... ", false);
                 Sleep(1000);
 
                 pick = country[random_active];
 
                 size = pick.length();
-
-                cout << " \n Press Enter to Start ";
+              
+                cout << "\n\n";
+     
+                center_padding(" Press Enter to Start", true);
 
                 if (cin.get() == '\n') {
 
@@ -452,14 +581,14 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
-                    save_data(username, wins, lose, hint, add_life, skip);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
 
 
                     while (true) {
 
                         system("cls");
                         header_little(true);
-                        center_padding(" Press 'E' to Return at Main Menu", false);
+                        center_padding (" Press 'E' to Return at Main Menu", false);
                         cout << "\n";
                         play_again();
 
@@ -484,9 +613,12 @@ int main() {
                             break;
 
                         }
-                        else if (play_more == 'N' || play_more == 'YES') {
+                        else if (play_more == 'N' || play_more == 'NO') {
 
-
+                            cover(true);
+                            center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
+                            save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                            cout << "\n\n\n\n";
                             return 0;
 
                         }  else if (play_more == 'E' || play_more == 'EXIT') {
@@ -508,7 +640,11 @@ int main() {
             }
             else if (category[random_active] == " Vegetable") {
 
-                cout << " You Just Pick Vegetable\n " << endl;
+                system("cls");
+                cover(true);
+                cout << "\n";
+                center_padding(" You Just Pick Vegetable", false);
+                Sleep(2000);
 
                 string vegetable[] = { "CABBAGE", "EGGPLANT","CARROT", "COURGETTE", "ARTICHOKE", "BEET", "BROCOLLI","CAULIFLOWER", "CUCUMBER", "LETTUCE", "MUSHROOM",
                 "ONION", "PEA", "PEPPER", "POTATO", "PUMPKIN", "RADISH", "ZUCCHINI", "CELERY", "TOMATO" };
@@ -516,13 +652,18 @@ int main() {
 
                 random_active = rand() % s_vegetable;
 
-                cout << " Randomizing Vegetables, Please Wait... " << endl;
+                system("cls");
+                cover(true);
+                cout << "\n";
+                center_padding(" Randomizing Vegetables, Please Wait... ", false);
                 Sleep(1000);
 
                 pick = vegetable[random_active];
                 size = pick.length();
 
-                cout << " \n Press Enter to Start ";
+                cout << "\n\n";
+            
+                center_padding(" Press Enter to Start", true);
 
                 if (cin.get() == '\n') {
 
@@ -531,7 +672,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
-                    save_data(username, wins, lose, hint, add_life, skip);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
 
                     while (true) {
 
@@ -562,9 +703,12 @@ int main() {
                             break;
 
                         }
-                        else if (play_more == 'N' || play_more == 'YES') {
+                        else if (play_more == 'N' || play_more == 'NO') {
 
-
+                            cover(true);
+                            center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
+                            save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                            cout << "\n\n\n\n";
                             return 0;
 
                         } else if (play_more == 'E' || play_more == 'EXIT') {
@@ -583,7 +727,11 @@ int main() {
             }
             else if (category[random_active] == " Fruit") {
 
-                cout << " You Just Pick Fruit\n " << endl;
+                system("cls");
+                cover(true);
+                cout << "\n";
+                center_padding(" You Just Pick Fruit", false);
+                Sleep(2000);
 
                 string fruit[] = { "APPLE", "WATERMELON", "ORANGE", "PEAR", "STRAWBERRY", "GRAPES", "PLUM", "BLUEBERRY", "MANGO", "PAPAYA", "APRICOT", "MANDARIN", "BANANA", "GRAPEFRUIT",
                     "LEMON", "LIME", "PINEAPPLE", "JACKFRUIT", "MELON", "COCONUT", "AVOCADO", "PEACH", "KIWI", "BLACKCURRANT", "CHERRY", "LYCHEE", "NECTARINE", "BLACKBERRY", "RASPBERRY" };
@@ -591,13 +739,18 @@ int main() {
 
                 random_active = rand() % s_fruit;
 
-                cout << " Randomizing Fruit, Please Wait... " << endl;
+                system("cls");
+                cover(true);
+                cout << "\n";
+                center_padding(" Randomizing Fruit, Please Wait... ", false);
                 Sleep(1000);
 
                 pick = fruit[random_active];
                 size = pick.length();
 
-                cout << " \n Press Enter to Start ";
+                cout << "\n\n";
+               
+                center_padding(" Press Enter to Start", true);
 
                 if (cin.get() == '\n') {
 
@@ -606,7 +759,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
-                    save_data(username, wins, lose, hint, add_life, skip);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
 
                     while (true) {
 
@@ -637,9 +790,12 @@ int main() {
                             break;
 
                         }
-                        else if (play_more == 'N' || play_more == 'YES') {
+                        else if (play_more == 'N' || play_more == 'NO') {
 
-
+                            cover(true);
+                            center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
+                            save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                            cout << "\n\n\n\n";
                             return 0;
 
                         } else if (play_more == 'E' || play_more == 'EXIT') {
@@ -662,7 +818,11 @@ int main() {
             }
             else if (category[random_active] == " Luzon Province") {
 
-                cout << " You Just Pick Luzon Province\n " << endl;
+                system("cls");
+                cover(true);
+                cout << "\n";
+                center_padding(" You Just Pick Luzon Province", false);
+                Sleep(2000);
 
                 string l_province[] = { "BENGUET" , "APAYAO", "KALINGA", "ABRA", "IFUGAO", "PANGASINAN", "CAGAYAN", "ISABELA", "QUIRINO", "BATANES", "TARLAC", "ZAMBALES", "PAMPANGA", "AURORA",
                     "BULACAN", "BATAAN", "RIZAL", "LAGUNA", "CAVITE", "BATANGAS", "QUEZON", "PALAWAN", "MARINDUQUE", "ALBAY", "MASBATE", "SORSOGON", "CATANDUANES" };
@@ -670,14 +830,20 @@ int main() {
 
                 random_active = rand() % s_lprovince;
 
-                cout << " Randomizing Luzon Provinces, Please Wait... " << endl;
+                system("cls");
+                cover(true);
+                cout << "\n";
+                center_padding(" Randomizing Luzon Provinces, Please Wait... ", false);
                 Sleep(1000);
 
                 pick = l_province[random_active];
 
                 size = pick.length();
 
-                cout << " \n Press Enter to Start ";
+                cout << "\n\n";
+       
+                center_padding(" Press Enter to Start", true);
+
 
                 if (cin.get() == '\n') {
 
@@ -686,6 +852,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
 
                     while (true) {
 
@@ -716,9 +883,12 @@ int main() {
                             break;
 
                         }
-                        else if (play_more == 'N' || play_more == 'YES') {
+                        else if (play_more == 'N' || play_more == 'NO') {
 
-
+                            cover(true);
+                            center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
+                            save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                            cout << "\n\n\n\n";
                             return 0;
 
                         } else if (play_more == 'E' || play_more == 'EXIT') {
@@ -806,7 +976,7 @@ int main() {
                     Sleep(1000);
                     system("cls");
 
-                    save_data(username, wins, lose, hint, add_life, skip);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
 
                 }
                 else {
@@ -853,7 +1023,7 @@ int main() {
                     Sleep(1000);
                     system("cls");
 
-                    save_data(username, wins, lose, hint, add_life, skip);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
 
                 }
                 else {
@@ -902,7 +1072,7 @@ int main() {
                     Sleep(1000);
                     system("cls");
 
-                    save_data(username, wins, lose, hint, add_life, skip);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
 
                 }  else {
 
@@ -916,7 +1086,7 @@ int main() {
             }
             else if (buy == 'e' || buy == 'E') {
              
-                save_data(username, wins, lose, hint, add_life, skip);
+                save_data(username, wins, lose, hint, add_life, skip, is_intro);
                 system("cls");
                 break;
 
@@ -936,10 +1106,63 @@ int main() {
     }
     else if (is_ready == 0) {
 
+        cover(true);
+        center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
+        cout << "\n\n\n\n";
+        save_data(username, wins, lose, hint, add_life, skip, is_intro);
+        break;
+
     }
     else if (is_ready == 5) {
 
-        cout << "try";
+        while (true) {
+            int_streak = 1000;
+            header_little(false);
+            cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
+            cout << "." << setw(10) << "" << left << setw(10) << "Streak Count: " << left << setw(93) << int_streak << "." << endl;
+            cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
+            cout << setw(10) << "" << left << setw(45) << " Streak Achievement" << left << setw(45) << "Rewards" << "Available" << endl;
+            cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
+            cout << setw(10) << "" << left << setw(45) << " 1. Accumulate 3 Streaks" << left << setw(49) << "3x hints" << rewards1 << endl;
+            cout << setw(10) << "" << left << setw(45) << " 2. Accumulate 5 Streaks" << left << setw(49) << "1x Revive" << rewards2 << endl;
+            cout << setw(10) << "" << left << setw(45) << " 3. Accumulate 10 Streaks" << left << setw(49) << "3x hints, 1x Revive" << rewards3 << endl;
+            cout << setw(10) << "" << left << setw(45) << " 4. Accumulate 15 Streaks" << left << setw(49) << "5x hints, 1x Revive" << rewards4 << endl;
+            cout << setw(10) << "" << left << setw(45) << " 5. Accumulate 30 Streaks" << left << setw(49) << "10x hints, 3x Revives, 1x Skip" << rewards5 << endl;
+            cout << setw(10) << "" << left << setw(45) << " 6. Accumulate 35 Streaks" << left << setw(49) << "15x hints, 4x Revives, 1x Skip" << rewards6 << endl;
+            cout << setw(10) << "" << left << setw(45) << " 7. Accumulate 50 Streaks" << left << setw(49) << "30x hints, 7x Revives, 5x Skips" << rewards7 << endl;
+            cout << setw(10) << "" << left << setw(45) << " 8. Accumulate 100 Streaks" << left << setw(49) << "70x hints, 15x Revives, 10x Skips" << rewards8 << endl;
+            cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
+            cout << setw(59) << "" << ": ";
+            cin >> streak_claim;
+
+            
+
+                if (cin.fail() || cin.peek() != '\n' || streak_claim != 0 && streak_claim != 1 && streak_claim != 2 && streak_claim != 3 &&
+                    streak_claim != 4 && streak_claim != 5 && streak_claim != 6 && streak_claim != 7 && streak_claim != 8) {
+                    
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    center_padding(" Invalid Input, Try Again", true);
+                    Sleep(1000);
+                    system("cls");
+              
+                    continue;
+
+                }
+
+
+
+            
+
+
+        }
+
+
+          
+        
+
+
+       
 
     }
 
@@ -1445,6 +1668,8 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
             center_padding(" Word: " + word, false);
             cout << "\n";
             center_padding("Game Over | Now Exiting....", false);
+            streak = false;
+            int_streak = 0;
             storage.clear();
             lose++;
             Sleep(1000);
@@ -1465,6 +1690,8 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
             center_padding(extract, false);
             cout << "\n\n ";
             center_padding("Congratulations, You Win!", false);
+            streak = true;
+            int_streak++;
             wins++;
             storage.clear();
             cout << "\n";
@@ -1508,6 +1735,8 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
                         center_padding(extract, false);
                         cout << "\n\n ";
                         center_padding("Congratulations, You Win!", false);
+                        streak = true;
+                        int_streak++;
                         wins++;
                         storage.clear();
                         cout << "\n";
@@ -1588,6 +1817,7 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
                             cin.ignore(1000, '\n');
                             lives_counter(lives, category);
                             center_padding("Word Skipped: ", false);
+                            skip--;
                             cout << "\n";
                             center_padding(word, false);
                             storage.clear();
@@ -1660,6 +1890,7 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
             }
         }
 
+        save_data(username, wins, lose, hint, add_life, skip, is_intro);
         if (skip_b == true) {
 
             system("cls");
@@ -1686,23 +1917,37 @@ void header_little(bool curtain) {
     cout << " * * *  " << "       *     *   ***  " << "     |                    (_____|                     ) " << "      *     *     ***     * *   " << endl;
     cout << "      " << "          * * *       " << "       +-----------------------------------------------+ " << "        * * *                " << endl;
    
-
     if (curtain == true) {
-        cout << "*                                *                                                  *                                 *       " << endl;
+        cout << "*                                *                                                  *                                *       " << endl;
         cout << "     *                      *                 Guess the Word, Save the Man!              *                      *                   " << endl;
         cout << "          *     **     *                                                                      *     **     *                             " << endl;
-
     } 
        
    
-    
     
 }
 
 
 void loading_animation() {
 
+    int tips_random;
 
+    string pick_tip;
+
+    string tips[] = { " Why not try vowel first? ", " In main menu, press W to access winstreak rewards! ", " Think, Enter, Skip Word ", " Don't let your mind hang ", " Simple game but do have fun! ", " Be careful for what you're clicking ",
+    " There is no time limit, Should I put one?", " Well, your opponent is your vocabulary ", " Even small wins always matter! " };
+    int tips_size = sizeof(tips) / sizeof(tips[0]);
+
+    srand(static_cast<unsigned int>(time(0)));
+
+    tips_random = rand() % tips_size;
+
+    pick_tip = tips[tips_random];
+
+    cout << "\n";
+    center_padding("Tip:" + pick_tip, false);
+   
+    cout << "\n\n";
     center_padding("Now Loading", false);
     cout << "\n";
     Sleep(500);
@@ -1768,8 +2013,8 @@ void header_littlev2() {
         cout << left << setw(32) << "  * *  . * .    *     * *    .  " << left << setw(32) << ":(__)           (__)    (__)     '-'  '-'       (__)    :"        << "  * .*     *  *  *  .   *. *  " << endl;
         cout << left << setw(32) << " .    .    *  *    .        .   " << left << setw(32) << ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . "       << "  ** .   .     .    .   **  . " << endl;
         cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
-        cout << setw(5) << "" << left << setw(8) << " Wins: " << left << setw(15) << wins << left << setw(8) << "Lose: " << left << setw(15) << lose << left << setw(8) << " Hint: " << left << setw(15) << hint << left << setw(8) << " Life Recovery: "
-            << left << setw(15) << add_life << left << setw(8) << " Skip: " << skip << endl;
+        cout << setw(6) << "" << left << setw(8) << " Wins: " << left << setw(10) << wins << left << setw(8) << "Lose: " << left << setw(10) << lose << left << setw(8) << " Hint (Press 1): " << left << setw(10) << hint << left << setw(8) << " Life Recovery: "
+            << left << setw(10) << add_life << left << setw(8) << " Skip (Press 2): " << skip << endl;
         cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
        
   
@@ -1782,9 +2027,6 @@ void play_again() {
     cout << setw(25) << "" << "   __| |______________________________________________________| |__ " << endl;
     cout << setw(25) << "" << "   __   ______________________________________________________   __ " << endl;
     cout << setw(30) << "" << "| |" << setw(54) << "" << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "         " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "         " << "| |" << endl;
-    cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "          " << "| |" << endl;
     cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "      .-------------.  " << "| |" << endl;
     cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << "     *  Do You Want  *   " << "| |" << endl;
     cout << setw(30) << "" << "| |" << setw(15) << "" << left << setw(39) << " 0  <   Play Again?   | " << "| |" << endl;
@@ -1825,7 +2067,7 @@ void hint_usage(string& word, char extract[], int word_size, int& hint ) {
 }
 
 
-void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip) {
+void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip, bool is_intro) {
     ofstream record("STATS OF " + username);
    
     record << "Username: " << username << "\n";
@@ -1834,12 +2076,13 @@ void save_data(const string& username, int wins, int loses, int hints, int add_l
     record << "Hints: " << hints << "\n";
     record << "Revives: " << add_life << "\n";
     record << "Skips: " << skip << "\n";
+    record << "Introduction: " << is_intro << "\n";
 
     record.close();
  
 }
 
-bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip) {
+bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip, bool& is_intro) {
     ifstream record("STATS OF " + username);
     string label;
     string subtract;
@@ -1868,9 +2111,25 @@ bool load_data(const string& username, int& wins, int& loses, int& hints, int& a
             else if (label.find("Skips: ") == 0) {
                 skip = stoi(label.substr(7));
             }
+            else if (label.find("Introduction: ") == 0){
+                is_intro = stoi(label.substr(14));
+            }
         }
     }
 
     record.close();
     return true;
 }
+
+
+
+
+    
+
+
+
+
+
+
+
+
