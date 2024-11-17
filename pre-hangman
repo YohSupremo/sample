@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int wins = 12, lose = 0, hint = 0, add_life = 0, skip = 0, int_streak = 0, streak_claim = 0;
+int wins = 0, lose = 0, hint = 0, add_life = 0, skip = 0, int_streak = 0, streak_claim = 0, streak_high = 0;
 string username, password;
 bool is_intro = false, streak = true, rewards1 = 1, rewards2 = 1, rewards3 = 1, rewards4 = 1, rewards5 = 1, rewards6 = 1, rewards7 = 1, rewards8 = 1;
 
@@ -29,8 +29,10 @@ void header_littlev2();
 void play_again();
 void hint_usage(string& word, char extract[], int word_size, int& hint);
 void lives_counter(int& lives, string category);
-void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip, bool is_intro);
-bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip, bool& is_intro);
+void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip, bool is_intro, int streak_high, int int_streak,
+    bool rewards1, bool rewards2, bool rewards3, bool rewards4, bool rewards5, bool rewards6, bool rewards7, bool rewards8);
+bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip, bool& is_intro, int& streak_high, int& int_streak,
+    bool& rewards1, bool& rewards2, bool& rewards3, bool& rewards4, bool& rewards5, bool& rewards6, bool& rewards7, bool& rewards8);
 
 
 
@@ -306,7 +308,7 @@ int main() {
     }
 
     system("cls");
-    load_data(username, wins, lose, hint, add_life, skip, is_intro);
+    load_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
 
     //hangman game;
 
@@ -368,7 +370,7 @@ int main() {
 
         system("cls");
         is_intro = true;
-        save_data(username, wins, lose, hint, add_life, skip, is_intro);
+        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
     }
     
     
@@ -377,11 +379,11 @@ int main() {
     header_little(true);
 
     center_padding(" Type the Designated Number to Select", true);
-    cout << left << setw(51) << "              - - - - - - - - - -        " << "  ------------- " << "                                 " << endl;
-    cout << left << setw(50) << "            '    You can access   '     " << "  < 1. P L A Y  > " << "              '  '  '  '  '  '  " << endl;
-    cout << left << setw(51) << "   0      <  lederboard by typing  '" << "  -------------" << "              '                  '  " << endl;
-    cout << left << setw(51) << " \\ | /      '       '5'           '     " << "  ------------- " << "            '  Can you do it?    >     0  \\ " << endl;
-    cout << left << setw(50) << "   |          - - - - - - - - - -       " << "  < 2. S H O P  > " << "            '                  '  \\ _ | __ " << endl;
+    cout << left << setw(51) << "              - - - - - - - - - - - -       " << "  ------------- " << "                                 " << endl;
+    cout << left << setw(50) << "            '    You can access       '     " << "  < 1. P L A Y  > " << "              '  '  '  '  '  '  " << endl;
+    cout << left << setw(51) << "   0      <  streak rewards by typing  '" << "  -------------" << "              '                  '  " << endl;
+    cout << left << setw(51) << " \\ | /      '          '3'            '     " << "  ------------- " << "            '  Can you do it?    >     0  \\ " << endl;
+    cout << left << setw(50) << "   |          - - - - - - - - - - - -     " << "  < 2. S H O P  > " << "            '                  '  \\ _ | __ " << endl;
     cout << left << setw(51) << "  / \\                                   " << "  -------------" << "                '  '  '  '  '  '        |  " << endl;
     cout << left << setw(51) << "                                        " << "  ------------- " << "                                      / \\ " << endl;
     cout << left << setw(50) << "                                        " << "  < 0. E X I T  > " << "                                         " << endl;
@@ -400,7 +402,7 @@ int main() {
 
  
 
-    if (cin.fail() || cin.peek() != '\n') {
+    if (cin.fail() || cin.peek() != '\n' || is_ready != 0 && is_ready != 1 && is_ready != 2 && is_ready != 3) {
 
         cin.clear();
         cin.ignore(1000, '\n');
@@ -581,7 +583,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
-                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
 
 
                     while (true) {
@@ -610,14 +612,16 @@ int main() {
 
                         if (play_more == 'Y' || play_more == 'YES') {
 
+                            system("cls");
                             break;
 
                         }
                         else if (play_more == 'N' || play_more == 'NO') {
 
+                            system("cls");
                             cover(true);
                             center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
-                            save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                            save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
                             cout << "\n\n\n\n";
                             return 0;
 
@@ -672,7 +676,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
-                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
 
                     while (true) {
 
@@ -700,14 +704,17 @@ int main() {
 
                         if (play_more == 'Y' || play_more == 'YES') {
 
+
+                            system("cls");
                             break;
 
                         }
                         else if (play_more == 'N' || play_more == 'NO') {
 
+                            system("cls");
                             cover(true);
                             center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
-                            save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                            save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
                             cout << "\n\n\n\n";
                             return 0;
 
@@ -759,7 +766,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
-                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
 
                     while (true) {
 
@@ -787,14 +794,17 @@ int main() {
 
                         if (play_more == 'Y' || play_more == 'YES') {
 
+
+                            system("cls");
                             break;
 
                         }
                         else if (play_more == 'N' || play_more == 'NO') {
 
+                            system("cls");
                             cover(true);
                             center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
-                            save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                            save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
                             cout << "\n\n\n\n";
                             return 0;
 
@@ -852,7 +862,7 @@ int main() {
                     hide_word(extract, size);
 
                     gameplay(pick, extract, size, lives, category_store);
-                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
 
                     while (true) {
 
@@ -880,14 +890,17 @@ int main() {
 
                         if (play_more == 'Y' || play_more == 'YES') {
 
+
+                            system("cls");
                             break;
 
                         }
                         else if (play_more == 'N' || play_more == 'NO') {
 
+                            system("cls");
                             cover(true);
                             center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
-                            save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                            save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
                             cout << "\n\n\n\n";
                             return 0;
 
@@ -976,7 +989,7 @@ int main() {
                     Sleep(1000);
                     system("cls");
 
-                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
 
                 }
                 else {
@@ -1023,7 +1036,7 @@ int main() {
                     Sleep(1000);
                     system("cls");
 
-                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
 
                 }
                 else {
@@ -1072,7 +1085,7 @@ int main() {
                     Sleep(1000);
                     system("cls");
 
-                    save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                    save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
 
                 }  else {
 
@@ -1086,7 +1099,7 @@ int main() {
             }
             else if (buy == 'e' || buy == 'E') {
              
-                save_data(username, wins, lose, hint, add_life, skip, is_intro);
+                save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
                 system("cls");
                 break;
 
@@ -1109,17 +1122,18 @@ int main() {
         cover(true);
         center_padding(" by: Kelly Laurence Q. Roduta - BSIT-T-1A", false);
         cout << "\n\n\n\n";
-        save_data(username, wins, lose, hint, add_life, skip, is_intro);
+        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
         break;
 
     }
-    else if (is_ready == 5) {
+    else if (is_ready == 3) {
 
         while (true) {
-            int_streak = 1000;
+
+           
             header_little(false);
             cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
-            cout << "." << setw(10) << "" << left << setw(10) << "Streak Count: " << left << setw(93) << int_streak << "." << endl;
+            cout << "." << setw(10) << "" << left << setw(10) << "Highest Streak: " << left << setw(28) << streak_high << "Current Streak: " << left << setw(47) << int_streak  << "." << endl;
             cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
             cout << setw(10) << "" << left << setw(45) << " Streak Achievement" << left << setw(45) << "Rewards" << "Available" << endl;
             cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
@@ -1132,6 +1146,8 @@ int main() {
             cout << setw(10) << "" << left << setw(45) << " 7. Accumulate 50 Streaks" << left << setw(49) << "30x hints, 7x Revives, 5x Skips" << rewards7 << endl;
             cout << setw(10) << "" << left << setw(45) << " 8. Accumulate 100 Streaks" << left << setw(49) << "70x hints, 15x Revives, 10x Skips" << rewards8 << endl;
             cout << setw(120) << setfill('.') << "" << setfill(' ') << endl;
+            center_padding(" Press '0' to Exit", false);
+            cout << "\n";
             cout << setw(59) << "" << ": ";
             cin >> streak_claim;
 
@@ -1150,10 +1166,311 @@ int main() {
 
                 }
 
+                if (streak_claim == 1) {
+
+                    if (streak_high >= 3 && rewards1 == 1) {
+
+                        hint += 3;
+                        rewards1 = 0;
+                        center_padding(" Successfully Claim 3x himts", true);
+                        Sleep(1000);
+                        system("cls");
+                        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+                        continue;
 
 
-            
+                    }
+                    else {
 
+                        if (rewards1 == 0) {
+
+                            center_padding(" You Already Claimed this Reward", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+
+
+                        }
+                        else {
+                            center_padding(" 3 Streaks not meet", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+                        }
+
+                    }
+
+
+                }
+                else if (streak_claim == 2) {
+
+                    if (streak_high >= 5 && rewards2 == 1) {
+
+                        add_life += 1;
+                        rewards2 = 0;
+                        center_padding(" Successfully Claim 1x Revive", true);
+                        Sleep(1000);
+                        system("cls");
+                        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+                        continue;
+
+
+                    }
+                    else {
+
+                        if (rewards2 == 0) {
+
+                            center_padding(" You Already Claimed this Reward", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+
+
+                        }
+                        else {
+                            center_padding(" 5 Streaks not meet", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+                        }
+
+                    }
+
+                }
+                else if (streak_claim == 3) {
+
+
+                    if (streak_high >= 10 && rewards3 == 1) {
+
+                        hint += 3;
+                        add_life += 1;
+
+                        rewards3 = 0;
+                        center_padding(" Successfully Claim 3x hints & 1x Revive", true);
+                        Sleep(1000);
+                        system("cls");
+                        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+                        continue;
+
+
+                    }
+                    else {
+
+                        if (rewards3 == 0) {
+
+                            center_padding(" You Already Claimed this Reward", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+
+
+                        }
+                        else {
+                            center_padding(" 10 Streaks not meet", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+                        }
+
+                    }
+
+                }
+                else if (streak_claim == 4) {
+
+                    if (streak_high >= 15 && rewards4 == 1) {
+
+                        hint += 5;
+                        add_life += 1;
+
+                        rewards4 = 0;
+                        center_padding(" Successfully Claim 5x hints & 1x Revive", true);
+                        Sleep(1000);
+                        system("cls");
+                        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+                        continue;
+
+
+                    }
+                    else {
+
+                        if (rewards4 == 0) {
+
+                            center_padding(" You Already Claimed this Reward", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+
+
+                        }
+                        else {
+                            center_padding(" 15 Streaks not meet", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+                        }
+
+                    }
+
+                }
+                else if (streak_claim == 5) {
+
+                    if (streak_high >= 30 && rewards5 == 1) {
+
+                        hint += 10;
+                        add_life += 3;
+                        skip += 1;
+
+                        rewards5 = 0;
+                        center_padding(" Successfully Claim 10x hints, 3x Revives, & 1x Skip", true);
+                        Sleep(1000);
+                        system("cls");
+                        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+                        continue;
+
+
+                    }
+                    else {
+
+                        if (rewards5 == 0) {
+
+                            center_padding(" You Already Claimed this Reward", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+
+
+                        }
+                        else {
+                            center_padding(" 30 Streaks not meet", true);
+                            Sleep(1000);
+                            system("cls");
+                            save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+                            continue;
+                        }
+
+                    }
+
+                }
+                else if (streak_claim == 6) {
+
+                    if (streak_high >= 35 && rewards6 == 1) {
+
+                        hint += 15;
+                        add_life += 4;
+                        skip += 1;
+
+                        rewards6 = 0;
+                        center_padding(" Successfully Claim 15x hints, 4x Revives, & 1x Skip", true);
+                        Sleep(1000);
+                        system("cls");
+                        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+                        continue;
+
+
+                    }
+                    else {
+
+                        if (rewards6 == 0) {
+
+                            center_padding(" You Already Claimed this Reward", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+
+
+                        }
+                        else {
+                            center_padding(" 35 Streaks not meet", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+                        }
+
+                    }
+
+                }
+                else if (streak_claim == 7) {
+
+                    if (streak_high >= 50 && rewards7 == 1) {
+
+                        hint += 30;
+                        add_life += 7;
+                        skip += 5;
+
+                        rewards7 = 0;
+                        center_padding(" Successfully Claim 30x hints, 7x Revives, & 5x Skips", true);
+                        Sleep(1000);
+                        system("cls");
+                        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+                        continue;
+
+
+                    }
+                    else {
+
+                        if (rewards7 == 0) {
+
+                            center_padding(" You Already Claimed this Reward", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+
+
+                        }
+                        else {
+                            center_padding(" 50 Streaks not meet", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+                        }
+
+                    }
+
+                }
+                else if (streak_claim == 8) {
+
+                    if (streak_high >= 100 && rewards8 == 1) {
+
+                        hint += 70;
+                        add_life += 15;
+                        skip += 10;
+
+                        rewards8 = 0;
+                        center_padding(" Successfully Claim 70x hints, 15x Revives, & 10x Skips", true);
+                        Sleep(1000);
+                        system("cls");
+                        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+
+                        continue;
+
+
+                    }
+                    else {
+
+                        if (rewards8 == 0) {
+
+                            center_padding(" You Already Claimed this Reward", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+
+
+                        }
+                        else {
+                            center_padding(" 100 Streaks not meet", true);
+                            Sleep(1000);
+                            system("cls");
+                            continue;
+                        }
+
+                    }
+
+                }
+                else {
+                    break;
+                }
+
+                save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
 
         }
 
@@ -1674,6 +1991,8 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
             lose++;
             Sleep(1000);
             system("cls");
+            save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+
             break;
 
            
@@ -1692,12 +2011,20 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
             center_padding("Congratulations, You Win!", false);
             streak = true;
             int_streak++;
+
+            if (int_streak > streak_high) {
+
+                streak_high = int_streak;
+
+            }
+
             wins++;
             storage.clear();
             cout << "\n";
             center_padding("Exiting...", false);
-
             Sleep(1000);
+            save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
+
             break;
 
         }
@@ -1737,6 +2064,12 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
                         center_padding("Congratulations, You Win!", false);
                         streak = true;
                         int_streak++;
+                        if (int_streak > streak_high) {
+
+                            streak_high = int_streak;
+
+                        }
+                         
                         wins++;
                         storage.clear();
                         cout << "\n";
@@ -1890,7 +2223,7 @@ void gameplay(string& word, char extract[], int word_size, int& lives, string ca
             }
         }
 
-        save_data(username, wins, lose, hint, add_life, skip, is_intro);
+        save_data(username, wins, lose, hint, add_life, skip, is_intro, streak_high, int_streak, rewards1, rewards2, rewards3, rewards4, rewards5, rewards6, rewards7, rewards8);
         if (skip_b == true) {
 
             system("cls");
@@ -1934,7 +2267,7 @@ void loading_animation() {
 
     string pick_tip;
 
-    string tips[] = { " Why not try vowel first? ", " In main menu, press W to access winstreak rewards! ", " Think, Enter, Skip Word ", " Don't let your mind hang ", " Simple game but do have fun! ", " Be careful for what you're clicking ",
+    string tips[] = { " Why not try vowel first? ", " In main menu, press 3 to access winstreak rewards! ", " Think, Enter, Skip Word ", " Don't let your mind hang ", " Simple game but do have fun! ", " Be careful for what you're clicking ",
     " There is no time limit, Should I put one?", " Well, your opponent is your vocabulary ", " Even small wins always matter! " };
     int tips_size = sizeof(tips) / sizeof(tips[0]);
 
@@ -2067,7 +2400,8 @@ void hint_usage(string& word, char extract[], int word_size, int& hint ) {
 }
 
 
-void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip, bool is_intro) {
+void save_data(const string& username, int wins, int loses, int hints, int add_life, int skip, bool is_intro, int streak_high, int int_streak,
+                bool rewards1, bool rewards2, bool rewards3, bool rewards4, bool rewards5, bool rewards6, bool rewards7, bool rewards8) {
     ofstream record("STATS OF " + username);
    
     record << "Username: " << username << "\n";
@@ -2077,12 +2411,23 @@ void save_data(const string& username, int wins, int loses, int hints, int add_l
     record << "Revives: " << add_life << "\n";
     record << "Skips: " << skip << "\n";
     record << "Introduction: " << is_intro << "\n";
+    record << "Longest Streak: " << streak_high << "\n";
+    record << "Current Streak: " << int_streak << "\n";
+    record << "Streak 3: " << rewards1 << "\n";
+    record << "Streak 5: " << rewards2 << "\n";
+    record << "Streak 10: " << rewards3 << "\n";
+    record << "Streak 15: " << rewards4 << "\n";
+    record << "Streak 30: " << rewards5 << "\n";
+    record << "Streak 35: " << rewards6 << "\n";
+    record << "Streak 50: " << rewards7 << "\n";
+    record << "Streak 100: " << rewards8 << "\n";
 
     record.close();
  
 }
 
-bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip, bool& is_intro) {
+bool load_data(const string& username, int& wins, int& loses, int& hints, int& add_life, int& skip, bool& is_intro, int& streak_high, int& int_streak,
+                bool& rewards1, bool& rewards2, bool& rewards3, bool& rewards4, bool& rewards5, bool& rewards6, bool& rewards7, bool& rewards8) {
     ifstream record("STATS OF " + username);
     string label;
     string subtract;
@@ -2113,6 +2458,36 @@ bool load_data(const string& username, int& wins, int& loses, int& hints, int& a
             }
             else if (label.find("Introduction: ") == 0){
                 is_intro = stoi(label.substr(14));
+            }
+            else if (label.find("Longest Streak: ") == 0) {
+                streak_high = stoi(label.substr(16));
+            }
+            else if (label.find("Current Streak: ") == 0) {
+                int_streak = stoi(label.substr(16));
+            }
+            else if (label.find("Streak 3: ") == 0) {
+                rewards1 = stoi(label.substr(10));
+            }
+            else if (label.find("Streak 5: ") == 0) {
+                rewards2 = stoi(label.substr(10));
+            }
+            else if (label.find("Streak 10: ") == 0) {
+                rewards3 = stoi(label.substr(11));
+            }
+            else if (label.find("Streak 15: ") == 0) {
+                rewards4 = stoi(label.substr(11));
+            }
+            else if (label.find("Streak 30: ") == 0) {
+                rewards5 = stoi(label.substr(11));
+            }
+            else if (label.find("Streak 35: ") == 0) {
+                rewards6 = stoi(label.substr(11));
+            }
+            else if (label.find("Streak 50: ") == 0) {
+                rewards7 = stoi(label.substr(11));
+            }
+            else if (label.find("Streak 100: ") == 0) {
+                rewards8 = stoi(label.substr(12));
             }
         }
     }
